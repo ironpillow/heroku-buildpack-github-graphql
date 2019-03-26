@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+echo "Github Graphql Schema Installer"
+exit 0 # should always run

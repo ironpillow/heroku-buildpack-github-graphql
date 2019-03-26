@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+set -e # bail if any command fails
+
+BUILD_DIR=$1
+CACHE_DIR=$2
+ENV_DIR=$3
+
+mkdir -p $CACHE_DIR
+
+SCHEMA="${CACHE_DIR}/github.json"
+OUTPUT="${BUILD_DIR}/config/graphql_schemas"
+
+if [ ! -f $SCHEMA ]; then
+	echo "-----> Github Graphql Schema: Schema does not exist in cache, downloading."
+	curl -o $SCHEMA -L "https://raw.githubusercontent.com/octokit/graphql-schema/master/schema.json"
+else
+	echo "-----> Github Graphql Schema: Schema already exists in cache."
+fi
+
+echo "-----> Github Graphql Schema: Copying $SCHEMA to $OUTPUT"
+
+cp $SCHEMA $OUTPUT
